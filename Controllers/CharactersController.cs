@@ -1,17 +1,11 @@
 ﻿#nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Mime;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharacterAPI.Models;
 using MovieCharacterAPI.Models.DTO.Character;
-using MovieCharacterAPI.Models.DTO.Movie;
+using System.Net;
+using System.Net.Mime;
 
 namespace MovieCharacterAPI.Controllers
 {
@@ -30,12 +24,12 @@ namespace MovieCharacterAPI.Controllers
             _context = context;
             _mapper = mapper;
         }
-        # region Generic CRUD with DTOs
+        #region Generic CRUD with DTOs
         /// <summary>
         /// Get all the Characters in the database.
         /// </summary>
         /// <returns></returns>
-      
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacter()
         {
@@ -58,13 +52,13 @@ namespace MovieCharacterAPI.Controllers
             {
                 return NotFound("The character is not Found");
             }
-            var domaincharacter = await _context.Character.Include(c =>c.Movies).FirstOrDefaultAsync(c => c.Id == id);
+            var domaincharacter = await _context.Character.Include(c => c.Movies).FirstOrDefaultAsync(c => c.Id == id);
 
             if (domaincharacter == null)
             {
                 return NotFound();
             }
-       
+
             return _mapper.Map<CharacterReadDTO>(domaincharacter);
         }
 
@@ -88,7 +82,7 @@ namespace MovieCharacterAPI.Controllers
             {
                 return BadRequest();
             }
-          
+
             Character domainCharacter = _mapper.Map<Character>(updateCharacter);
             _context.Entry(domainCharacter).State = EntityState.Modified;
 
@@ -96,7 +90,7 @@ namespace MovieCharacterAPI.Controllers
 
 
             return Ok();
-          
+
         }
 
         /// <summary>
@@ -107,17 +101,17 @@ namespace MovieCharacterAPI.Controllers
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult<Character>> PostCharacter([FromBody]CharacterCreateDTO dtoCharacter)
+        public async Task<ActionResult<Character>> PostCharacter([FromBody] CharacterCreateDTO dtoCharacter)
         {
             Character domainCharacter = _mapper.Map<Character>(dtoCharacter);
             _context.Character.Add(domainCharacter);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCharacter", 
+            return CreatedAtAction("GetCharacter",
                    new { id = domainCharacter.Id },
                    _mapper.Map<CharacterReadDTO>(domainCharacter));
         }
-    /// <summary>
+        /// <summary>
         /// Deletes a character from the database.
         /// </summary>
         /// <param name="id"></param>
@@ -132,7 +126,7 @@ namespace MovieCharacterAPI.Controllers
                 return NotFound("The character is not Found");
             }
             var character = await _context.Character.FindAsync(id);
-         
+
             _context.Character.Remove(character);
             await _context.SaveChangesAsync();
 
@@ -144,7 +138,7 @@ namespace MovieCharacterAPI.Controllers
             return _context.Character.Any(c => c.Id == id);
         }
         #endregion
-       
+
         //
 
     }

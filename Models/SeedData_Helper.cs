@@ -1,14 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Diagnostics.CodeAnalysis;
-
-
-namespace MovieCharacterAPI.Models
-{   
+﻿namespace MovieCharacterAPI.Models
+{
 
     public class SeedData_Helper
     {
-       
+
         //This methodes will create characters and return all the characters created in a list
         public static IEnumerable<Character> NewCharacter()
         {
@@ -27,7 +22,7 @@ namespace MovieCharacterAPI.Models
 
 
             });
-          
+
             characterList.Add(new Character()
             {
                 Id = 2,
@@ -154,7 +149,7 @@ namespace MovieCharacterAPI.Models
                 Picture = "https://www.bing.com/images/search?view=detailV2&ccid=SZXySpB0&id=AAC1DAF732490B0599014B4F93F24739044A9371&thid=OIP.SZXySpB0dDv02xQz69ZRqAAAAA&mediaurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4995f24a9074743bf4db1433ebd651a8%3frik%3dcZNKBDlH8pNPSw%26riu%3dhttp%253a%252f%252fis2.mzstatic.com%252fimage%252fthumb%252fVideo6%252fv4%252f61%252f16%252fce%252f6116cec2-d2e8-de26-f80d-38a1685d04b8%252fsource%252f1200x630bb.jpg%26ehk%3dlW2QyaemzCrZCwIvEmPoMKXAwSTQGVUC5HCYTua9zLY%253d%26risl%3d%26pid%3dImgRaw%26r%3d0&exph=630&expw=420&q=star+wars+a+new+hope&simid=608037828834114165&FORM=IRPRST&ck=F9F24A1686A11C492D1EE6755EF6DA62&selectedIndex=0&ajaxhist=0&ajaxserp=0",
                 Trailer = "https://www.youtube.com/watch?v=vZ734NWnAHA",
                 FranchiseId = 1,
-              
+
 
 
 

@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using MovieCharacterAPI.Models;
-using MovieCharacterAPI.Models.DTO.Franchise;
 using MovieCharacterAPI.Models.DTO.Movie;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MovieCharacterAPI.Profiles
 {

@@ -1,18 +1,10 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
 using MovieCharacterAPI.Models;
-using AutoMapper;
 using MovieCharacterAPI.Profiles;
-using System.Reflection;
 using MovieCharacterAPI.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,13 +23,18 @@ builder.Services.AddScoped(typeof(IFranchiseServices), typeof(FranchiseServices)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieCharacterAPI", Version = "v1",
-                                          Description = "Backend:Assignment3_Noroff",
-                                          Contact= new OpenApiContact { 
-                                                    Name="Wendy Tapia",
-                                                    Email="wt@triark.no",
-                                                    Url= new Uri("https://linkedin.com/in/wendy-tapia-arispe-8738978a")
-                                          } }) ;
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "MovieCharacterAPI",
+        Version = "v1",
+        Description = "Backend:Assignment3_Noroff",
+        Contact = new OpenApiContact
+        {
+            Name = "Wendy Tapia",
+            Email = "wt@triark.no",
+            Url = new Uri("https://linkedin.com/in/wendy-tapia-arispe-8738978a")
+        }
+    });
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
@@ -50,8 +47,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI( c => c.SwaggerEndpoint("/swagger/v1/swagger.json","MovieCharacterAPI v1"));
-    
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieCharacterAPI v1"));
+
 }
 
 app.UseHttpsRedirection();

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MovieCharacterAPI.Models;
+﻿using MovieCharacterAPI.Models;
 
 namespace MovieCharacterAPI.Services
 {
@@ -8,11 +7,11 @@ namespace MovieCharacterAPI.Services
     /// </summary>
     public interface IFranchiseServices
     {
-        
-        
+
+
         public Task UpdateMoviesInFranchiseAsync(int id, List<int> charactersIdList);
-        public Task <IEnumerable<Movie>> GetMovieInFranchise(int id);
+        public Task<IEnumerable<Movie>> GetMovieInFranchise(int id);
         public bool FranchiseExists(int id);
     }
-    
+
 }

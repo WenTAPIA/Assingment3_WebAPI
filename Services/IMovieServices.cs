@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MovieCharacterAPI.Models;
+﻿using MovieCharacterAPI.Models;
 
 namespace MovieCharacterAPI.Services
 {
@@ -8,11 +7,11 @@ namespace MovieCharacterAPI.Services
     /// </summary>
     public interface IMovieServices
     {
-        
-        
+
+
         public Task UpdateCharacterinMovieAsync(int id, List<int> charactersIdList);
-        public Task <IEnumerable<Character>> GetCharactersinMovieAsync(int id);
+        public Task<IEnumerable<Character>> GetCharactersinMovieAsync(int id);
         public bool MovieExists(int id);
     }
-    
+
 }

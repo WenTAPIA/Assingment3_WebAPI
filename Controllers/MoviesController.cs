@@ -1,19 +1,12 @@
 ﻿#nullable disable
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Mime;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharacterAPI.Models;
-using MovieCharacterAPI.Models.DTO.Character;
 using MovieCharacterAPI.Models.DTO.Movie;
 using MovieCharacterAPI.Services;
+using System.Net;
+using System.Net.Mime;
 
 namespace MovieCharacterAPI.Controllers
 {
@@ -54,7 +47,7 @@ namespace MovieCharacterAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id}")]
-      
+
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<MovieReadDTO>> GetMovie(int id)
@@ -99,7 +92,7 @@ namespace MovieCharacterAPI.Controllers
 
             return Ok();
 
-                          
+
         }
 
         /// <summary>
@@ -115,7 +108,7 @@ namespace MovieCharacterAPI.Controllers
             _context.Movie.Add(domainMovie);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMovie", new { id = domainMovie.Id }, 
+            return CreatedAtAction("GetMovie", new { id = domainMovie.Id },
                  _mapper.Map<MovieReadDTO>(domainMovie));
         }
 
@@ -134,8 +127,8 @@ namespace MovieCharacterAPI.Controllers
                 return NotFound("The movie is not Found");
             }
 
-          var movie = await _context.Movie.FindAsync(id);
-           
+            var movie = await _context.Movie.FindAsync(id);
+
             _context.Movie.Remove(movie);
             await _context.SaveChangesAsync();
 
@@ -175,7 +168,7 @@ namespace MovieCharacterAPI.Controllers
         //}
 
         #endregion
-    
+
         #region Updating
         /// <summary>
         /// Update Characters Connected to Specific Movie
@@ -190,7 +183,7 @@ namespace MovieCharacterAPI.Controllers
         public async Task<IActionResult> UpdateCharactersInMovie(int id, [FromBody] List<int> charactersIdList)
         {
 
-       
+
             if (!_movieServices.MovieExists(id))
             {
                 return NotFound("The movie is not Found");

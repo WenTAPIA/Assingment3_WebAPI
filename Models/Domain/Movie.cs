@@ -7,7 +7,7 @@ namespace MovieCharacterAPI.Models
     /// Set the attributes for  Entity 
     /// </summary>
     public class Movie
-    {   
+    {
         //PK
         public int Id { get; set; }
         //Fields
@@ -21,6 +21,6 @@ namespace MovieCharacterAPI.Models
         //FK can be NULL
         public int? FranchiseId { get; set; }
         public Franchise? Franchise { get; set; }
-        public ICollection<Character>? Characters { get; set;}
+        public ICollection<Character>? Characters { get; set; }
     }
 }

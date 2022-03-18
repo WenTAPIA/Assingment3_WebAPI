@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using MovieCharacterAPI.Models;
 using MovieCharacterAPI.Models.DTO.Franchise;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MovieCharacterAPI.Profiles
 {
@@ -22,5 +18,5 @@ namespace MovieCharacterAPI.Profiles
             //FranchiseEditDTO- Franchise
             CreateMap<Franchise, FranchiseEditDTO>().ReverseMap();
         }
-    } 
+    }
 }

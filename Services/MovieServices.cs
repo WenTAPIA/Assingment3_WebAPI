@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieCharacterAPI.Models;
-using MovieCharacterAPI.Models.DTO.Movie;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MovieCharacterAPI.Services
 {
@@ -33,25 +28,25 @@ namespace MovieCharacterAPI.Services
             foreach (int characterId in charactersList)
             {
                 Character updCharacter = await _context.Character.FindAsync(characterId);
-              
+
                 fetchCharacters.Add(updCharacter);
-               
+
             }
             movieToUpdateCharacter.Characters = fetchCharacters;
             await _context.SaveChangesAsync();
         }
 
-        public async Task <IEnumerable<Character>>GetCharactersinMovieAsync(int movieId)
+        public async Task<IEnumerable<Character>> GetCharactersinMovieAsync(int movieId)
         {
 
-            var charactersMovie =  _context.Movie.Include(x=> x.Characters).Single(x => x.Id == movieId);
+            var charactersMovie = _context.Movie.Include(x => x.Characters).Single(x => x.Id == movieId);
             List<Character> characterList = new();
-            foreach(var character in charactersMovie.Characters)
+            foreach (var character in charactersMovie.Characters)
             {
                 characterList.Add(character);
             }
 
-          
+
             return characterList;
 
         }

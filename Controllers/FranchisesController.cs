@@ -1,12 +1,5 @@
 ﻿#nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Mime;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharacterAPI.Models;
@@ -14,10 +7,12 @@ using MovieCharacterAPI.Models.DTO.Character;
 using MovieCharacterAPI.Models.DTO.Franchise;
 using MovieCharacterAPI.Models.DTO.Movie;
 using MovieCharacterAPI.Services;
+using System.Net;
+using System.Net.Mime;
 
 namespace MovieCharacterAPI.Controllers
 {
-  
+
     [Route("api/v1/franchises")]
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
@@ -47,7 +42,7 @@ namespace MovieCharacterAPI.Controllers
                .ToListAsync());
 
         }
-      
+
         /// <summary>
         /// Get Franchises by Id in the database.
         /// </summary>
@@ -63,7 +58,7 @@ namespace MovieCharacterAPI.Controllers
             }
             var domainFranchise = await _context.Franchise.Include(c => c.Movies).FirstOrDefaultAsync(f => f.Id == id);
 
-          
+
 
             return _mapper.Map<FranchiseReadDTO>(domainFranchise);
         }
@@ -94,8 +89,8 @@ namespace MovieCharacterAPI.Controllers
 
             var updated = await _context.SaveChangesAsync();
             return Ok();
-            
-       
+
+
         }
 
         /// <summary>
@@ -108,7 +103,7 @@ namespace MovieCharacterAPI.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult<Franchise>> PostFranchise([FromBody] FranchiseCreateDTO dtoFranchise)
         {
-            Franchise domainFranchise =_mapper.Map<Franchise>(dtoFranchise);
+            Franchise domainFranchise = _mapper.Map<Franchise>(dtoFranchise);
 
             _context.Franchise.Add(domainFranchise);
             await _context.SaveChangesAsync();
@@ -132,7 +127,7 @@ namespace MovieCharacterAPI.Controllers
                 return NotFound("The franchise is not Found");
             }
             var franchise = await _context.Franchise.FindAsync(id);
-            
+
 
             _context.Franchise.Remove(franchise);
             await _context.SaveChangesAsync();
@@ -140,7 +135,7 @@ namespace MovieCharacterAPI.Controllers
             return NoContent();
         }
 
-       
+
         #endregion
 
         #region Reporting
@@ -183,24 +178,24 @@ namespace MovieCharacterAPI.Controllers
 
 
         public async Task<IActionResult> UpdateCharactersInMovie(int id, [FromBody] List<int> movieIdList)
-        { 
+        {
 
 
-                if (!_franchiseServices.FranchiseExists(id))
+            if (!_franchiseServices.FranchiseExists(id))
             {
-                    return NotFound("The franchise is not Found");
-                }
-                try
-                {
-                    await _franchiseServices.UpdateMoviesInFranchiseAsync(id, movieIdList);
-                }
-                catch (KeyNotFoundException)
-                {
-                    return BadRequest("Invalid Franchise");
-                }
-                return Ok();
+                return NotFound("The franchise is not Found");
+            }
+            try
+            {
+                await _franchiseServices.UpdateMoviesInFranchiseAsync(id, movieIdList);
+            }
+            catch (KeyNotFoundException)
+            {
+                return BadRequest("Invalid Franchise");
+            }
+            return Ok();
 
-          
+
 
             //var character = await _context.Character.FindAsync(1);
             //return null;
@@ -209,6 +204,6 @@ namespace MovieCharacterAPI.Controllers
 
 
         #endregion
-       
+
     }
 }
