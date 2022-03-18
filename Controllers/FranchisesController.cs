@@ -139,16 +139,17 @@ namespace MovieCharacterAPI.Controllers
         #endregion
 
         #region Reporting
+        
         /// <summary>
         /// return movies connected to specific franchise
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [Route("movie")]
-        public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMovieInFranchise()
-        { //to implement
-            var character = await _context.Character.FindAsync(1);
-            return null;
+        public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMovieInFranchise(int id)
+        { 
+            var movies = await _franchiseServices.GetMovieInFranchise(id);
+            return _mapper.Map<List<MovieReadDTO>>(movies);
 
         }
 
@@ -168,7 +169,7 @@ namespace MovieCharacterAPI.Controllers
 
         #region Updating
         /// <summary>
-        ///Complete Update which movies connected to franchise
+        ///Complete Update movies  connected to a franchise
         /// </summary>
         /// <returns></returns>
         [HttpPut]

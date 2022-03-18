@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharacterAPI.Models;
+using MovieCharacterAPI.Models.DTO.Character;
 using MovieCharacterAPI.Models.DTO.Movie;
 using MovieCharacterAPI.Services;
 using System.Net;
@@ -145,7 +146,14 @@ namespace MovieCharacterAPI.Controllers
         /// <returns></returns>
         //[HttpGet("{id}/characters")]
 
+        //[HttpGet]
+        //[Route("movie")]
+        //public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacterInFranchise(int id)
+        //{ //to implement
+        //    var characters = await _franchiseServices.GetCharactersInFranchise(id);
+        //    return _mapper.Map<List<CharacterReadDTO>>(characters);
 
+        //}
         //public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacterInMovie(int id)
         //{ //to implemet
         //    if (!_movieServices.MovieExists(id))
@@ -154,7 +162,7 @@ namespace MovieCharacterAPI.Controllers
         //    }
         //    try
         //    {
-        //        IEnumerable fechtedCharacters = await _movieServices.GetCharactersinMovieAsync(id);
+        //       var fechtedCharacters = await _movieServices.GetCharactersinMovieAsync(id);
         //        return _mapper.Map<CharacterReadDTO>(fechtedCharacters);
 
         //    }

@@ -36,20 +36,14 @@ namespace MovieCharacterAPI.Services
             await _context.SaveChangesAsync();
         }
 
+
         public async Task<IEnumerable<Movie>> GetMovieInFranchise(int franchiseId)
         {
 
-            var charactersMovie = _context.Franchise.Include(x => x.Movies).Single(x => x.Id == franchiseId);
-            List<Movie> characterList = new();
-            //foreach(var character in character)
-            //{
-            //    characterList.Add(character);
-            //}
-
-
-            return characterList;
+            return await _context.Movie.Include(x => x.Franchise).Where(x => x.FranchiseId == franchiseId).ToListAsync();
 
         }
+      
         /// <summary>
         /// this methode is to validate if a movie exist in the Database
         /// </summary>
