@@ -9,8 +9,7 @@ namespace MovieCharacterAPI.Models.DTO.Character
     {
             [Required(ErrorMessage ="Full Name is required")]   
             public string FullName { get; set; }
-            public string Alias { get; set; }
-            [RegularExpression("/^[MF]$/")]
+            public string Alias { get; set; }      
             public string Gender { get; set; }
             public string Picture { get; set; }
                   
