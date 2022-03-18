@@ -17,4 +17,5 @@ In order To create and Setup the data base EF core is used against DB.
 2) Data Transfer Objects are created for all the Models 
 3) AUTO MAP is used between entities and DTOs.
 4) Swagger is used for documentation
-5) Additional reporting and updating 
+5) Repository (services) are implemented for Updating Related data requirements. ( Update characters in a movie and movies in a franchise).  
+
