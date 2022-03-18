@@ -19,3 +19,8 @@ In order To create and Setup the data base EF core is used against DB.
 4) Swagger is used for documentation
 5) Repository (services) are implemented for Updating Related data requirements. ( Update characters in a movie and movies in a franchise).  
 
+
+# Improvments.
+System.ComponentModel.DataAnnotations use in DTO of mutations(Create and Update )
+Server constrains can be added to this DTOs to gain status bad request instead of exception from DataBase follow by internal Service 500.
+
