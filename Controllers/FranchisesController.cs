@@ -93,10 +93,9 @@ namespace MovieCharacterAPI.Controllers
             _context.Entry(domainFranchise).State = EntityState.Modified;
 
             var updated = await _context.SaveChangesAsync();
-            if (updated == id)
-                return Ok();
-            else return NotFound();
-            //update check exist first if not NOTFOUND
+            return Ok();
+            
+       
         }
 
         /// <summary>
@@ -110,6 +109,7 @@ namespace MovieCharacterAPI.Controllers
         public async Task<ActionResult<Franchise>> PostFranchise([FromBody] FranchiseCreateDTO dtoFranchise)
         {
             Franchise domainFranchise =_mapper.Map<Franchise>(dtoFranchise);
+
             _context.Franchise.Add(domainFranchise);
             await _context.SaveChangesAsync();
 

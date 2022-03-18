@@ -51,6 +51,7 @@ namespace MovieCharacterAPI.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<ActionResult<CharacterReadDTO>> GetCharacter(int id)
         {
             if (!CharacterExists(id))
