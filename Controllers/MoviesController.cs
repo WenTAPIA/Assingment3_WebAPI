@@ -142,38 +142,27 @@ namespace MovieCharacterAPI.Controllers
         /// <summary>
         /// Return Characters Connected to Specific Movie
         /// </summary>
-        ///  /// <param name="id"></param>
+        /// /// <param name="id"></param>
         /// <returns></returns>
-        //[HttpGet("{id}/characters")]
+     
 
-        //[HttpGet]
-        //[Route("movie")]
-        //public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacterInFranchise(int id)
-        //{ //to implement
-        //    var characters = await _franchiseServices.GetCharactersInFranchise(id);
-        //    return _mapper.Map<List<CharacterReadDTO>>(characters);
+        [HttpGet("{id}/characters")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        public async Task<ActionResult<List<CharacterReadDTO>>> GetCharactersInMovie(int id)
+        {
+            if (!_movieServices.MovieExists(id))
+            {
+                return NotFound("The movie is not Found");
+            }
+            var movie = await _context.Movie.Include(m => m.Characters).ThenInclude(c => c.Movies).FirstOrDefaultAsync(m => m.Id == id);
 
-        //}
-        //public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacterInMovie(int id)
-        //{ //to implemet
-        //    if (!_movieServices.MovieExists(id))
-        //    {
-        //        return NotFound("The movie is not Found");
-        //    }
-        //    try
-        //    {
-        //       var fechtedCharacters = await _movieServices.GetCharactersinMovieAsync(id);
-        //        return _mapper.Map<CharacterReadDTO>(fechtedCharacters);
+           
+            var charactersInMovie = _mapper.Map<List<CharacterReadDTO>>(movie.Characters);
 
-        //    }
-        //    catch (KeyNotFoundException)
-        //    {
-        //        return BadRequest("Invalid Characters");
-        //    }
-        //    return NoContent();
+            return Ok(charactersInMovie);
+        }
 
-
-        //}
 
         #endregion
 

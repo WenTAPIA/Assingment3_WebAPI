@@ -36,14 +36,26 @@ namespace MovieCharacterAPI.Services
             await _context.SaveChangesAsync();
         }
 
-
+        /// <summary>
+        /// This methode is to get movies in a franchise
+        /// </summary>
         public async Task<IEnumerable<Movie>> GetMovieInFranchise(int franchiseId)
         {
 
             return await _context.Movie.Include(x => x.Franchise).Where(x => x.FranchiseId == franchiseId).ToListAsync();
 
         }
-      
+
+        /// <summary>
+        /// This methode is to get characters in a franchise
+        /// </summary>
+        //public async Task<IEnumerable<Movie>> GetCharactersInFranchise(int franchiseId)
+        //{
+
+        //    return await _context.Character.Include(x => x.Movies).Where(x => x.FranchiseId == franchiseId).ToListAsync();
+
+        //}
+
         /// <summary>
         /// this methode is to validate if a movie exist in the Database
         /// </summary>

@@ -10,7 +10,7 @@ namespace MovieCharacterAPI.Services
 
 
         public Task UpdateCharacterinMovieAsync(int id, List<int> charactersIdList);
-        public Task<IEnumerable<Character>> GetCharactersinMovieAsync(int id);
+       
         public bool MovieExists(int id);
     }
 

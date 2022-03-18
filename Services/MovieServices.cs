@@ -36,25 +36,7 @@ namespace MovieCharacterAPI.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Character>> GetCharactersinMovieAsync(int movieId)
-        {
 
-            var charactersMovie = _context.Movie.Include(x => x.Characters).Single(x => x.Id == movieId);
-            List<Character> characterList = new();
-            foreach (var character in charactersMovie.Characters)
-            {
-                characterList.Add(character);
-            }
-
-
-            return characterList;
-
-        }
-        /// <summary>
-        /// this methode is to validate if a movie exist in the Database
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public bool MovieExists(int id)
         {
             return _context.Movie.Any(m => m.Id == id);

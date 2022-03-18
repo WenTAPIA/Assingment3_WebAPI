@@ -145,7 +145,7 @@ namespace MovieCharacterAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("movie")]
+        [Route("{id}/movie")]
         public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMovieInFranchise(int id)
         { 
             var movies = await _franchiseServices.GetMovieInFranchise(id);
@@ -154,17 +154,33 @@ namespace MovieCharacterAPI.Controllers
         }
 
         /// <summary>
-        /// return character connected to specific franchise
+        /// Gets all characters from a specific franchise specified by ID.
         /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("characters")]
-        public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacterInFranchise()
-        { //to implement
-            var character = await _context.Character.FindAsync(1);
-            return null;
+        /// <param name="id">Franchise ID</param>
+        /// <returns>A list of characters from the database and a responsetype indicating success.</returns>
+        [HttpGet("{id}/characters")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<ActionResult<CharacterReadDTO>> GetCharactersInFranchise(int id)
+        {
+            var franchise = await _context.Franchise.Include(f => f.Movies).ThenInclude(m => m.Characters).FirstOrDefaultAsync(f => f.Id == id);
 
+            if (franchise == null)
+            {
+                return NotFound();
+            }
+
+            List<Character> characters = new List<Character>();
+            foreach (var movie in franchise.Movies)
+            {
+                characters.AddRange(movie.Characters);
+            }
+
+            var characterList = _mapper.Map<List<CharacterReadDTO>>(characters.Distinct()).OrderBy(c => c.Id);
+
+            return Ok(characterList);
         }
+
         #endregion
 
         #region Updating
@@ -198,8 +214,7 @@ namespace MovieCharacterAPI.Controllers
 
 
 
-            //var character = await _context.Character.FindAsync(1);
-            //return null;
+        
 
         }
 
